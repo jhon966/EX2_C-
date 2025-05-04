@@ -1,29 +1,22 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -I.
 
-SRC = SquareMat.cpp
-HEADERS = SquareMat.h
+# All source files for Main
+SOURCES = main.cpp SquareMat.cpp test_plus.cpp test_divide.cpp test_doubleplus.cpp test_onari.cpp test_scalar.cpp
+OBJECTS = $(SOURCES:.cpp=.o)
 
-MAIN = main.cpp
-TESTS = test_divide.cpp test_plus.cpp test_doubleplus.cpp test_onari.cpp test_scalar.cpp
+# Main target
+Main: $(OBJECTS)
+	$(CXX) $(CXXFLAGS) -o Main $(OBJECTS)
 
-OBJS = $(SRC:.cpp=.o)
-TEST_OBJS = $(TESTS:.cpp=.o)
-
-TARGET_MAIN = Main
-
-.PHONY: all clean valgrind
-
-all: $(TARGET_MAIN)
-
-$(TARGET_MAIN): $(OBJS) $(TEST_OBJS) $(MAIN)
-	$(CXX) $(CXXFLAGS) -o $@ $^
-
-%.o: %.cpp $(HEADERS)
+# Generic rule to compile .cpp to .o
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-valgrind: $(TARGET_MAIN)
-	valgrind --leak-check=full ./$(TARGET_MAIN)
+# Run valgrind on Main
+valgrind: Main
+	valgrind ./Main
 
+# Clean all build artifacts
 clean:
-	rm -f *.o $(TARGET_MAIN)
+	rm -f *.o Main

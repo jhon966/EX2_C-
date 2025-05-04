@@ -1,6 +1,6 @@
 #include "SquareMat.h"
 # include "cassert"
-int test1() {//test4
+int test2() {//test4
 	SquareMat mat = SquareMat(3);
 	double x = mat[0][2];
 	double z = mat[1][2];
