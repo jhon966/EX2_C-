@@ -1,0 +1,41 @@
+# המהדר והדגלים
+CXX = g++
+CXXFLAGS = -std=c++17 -Wall -Wextra -g
+
+# קבצי המקור
+SRCS = main.cpp SquareMat.cpp test_scalar.cpp test_plus.cpp test_onari.cpp test_doubleplus.cpp test_divide.cpp
+
+# קבצי אובייקט
+OBJS = $(SRCS:.cpp=.o)
+
+# שם הקובץ המתקבל
+TARGET = Main
+
+# ברירת מחדל - קומפילציה
+all: $(TARGET)
+
+# קומפילציה של הקובץ הראשי
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+# קומפילציה של כל קובץ cpp לקובץ o
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# הפקודה make Main מריצה את התכנית
+Main: $(TARGET)
+	./$(TARGET)
+
+# הפקודה make test גם כן מריצה את התכנית
+test: $(TARGET)
+	./$(TARGET)
+
+# הפקודה make valgrind בודקת זליגות זיכרון
+valgrind: $(TARGET)
+	valgrind --leak-check=full ./$(TARGET)
+
+# הפקודה make clean מוחקת קבצים זמניים
+clean:
+	rm -f $(OBJS) $(TARGET)
+
+.PHONY: all Main test valgrind clean
