@@ -305,5 +305,5 @@ SquareMat SquareMat::operator*(const SquareMat& a) const
 	}
 	return b;
 }
-SquareMat
+
 

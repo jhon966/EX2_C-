@@ -1,6 +1,6 @@
 #include "SquareMat.h"
 # include "cassert"
-int main20() {
+int test2() {
 	SquareMat a = SquareMat(3);
 	SquareMat b = a - a;
 	assert(0 == b[1][1]);
