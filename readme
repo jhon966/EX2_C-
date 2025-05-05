@@ -1,0 +1,5 @@
+notes: 
+the main run the tests and the tests run the main .
+no memory leak found 
+the make file is the only part that copy from any ai chat.
+
