@@ -17,3 +17,5 @@ main: all
 
 clean:
 	rm -f *.o $(TARGET)
+valgrind: all
+	valgrind --leak-check=full --track-origins=yes ./$(TARGET)
