@@ -1,27 +1,19 @@
-CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -g
+CXX      = g++
+CXXFLAGS = -std=c++20 -Wall -Wextra -I./ -ISFML/include
+LDFLAGS  = -lsfml-graphics -lsfml-window -lsfml-system
 
-OBJ = main.o SquareMat.o test_scalar.o test_plus.o test_onari.o test_doubleplus.o test_divide.o
+SRC = $(wildcard *.cpp)
+OBJ = $(SRC:.cpp=.o)
+
 TARGET = Main
 
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJ)
+	$(CXX) $(OBJ) -o $(TARGET) $(LDFLAGS)
 
-%.o: %.cpp SquareMat.h
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-Main: $(TARGET)
+main: all
 	./$(TARGET)
-
-test: $(TARGET)
-	./$(TARGET)
-
-valgrind: $(TARGET)
-	valgrind --leak-check=full ./$(TARGET)
 
 clean:
-	rm -f $(OBJ) $(TARGET)
-
-.PHONY: all Main test valgrind clean
+	rm -f *.o $(TARGET)
